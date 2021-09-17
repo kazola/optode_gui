@@ -13,10 +13,12 @@ import serial
 
 
 # global serial port object
+GUI_SERIAL_PORT = '/dev/ttyACM1'
+GUI_SERIAL_DEF_TIMEOUT = .25
 ser = serial.Serial()
 ser.baudrate = 9600
-ser.port = '/dev/ttyACM0'
-ser.timeout = .3
+ser.port = GUI_SERIAL_PORT
+ser.timeout = GUI_SERIAL_DEF_TIMEOUT
 
 
 class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
@@ -43,6 +45,9 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
         th.Thread(target=cb).start()
 
     def click_btn_tests(self): self._th(self._tests)
+
+    def click_btn_clr_log(self):
+        self.lst_trace.clear()
 
     def closeEvent(self, _):
         """ pressed application window X to close it """

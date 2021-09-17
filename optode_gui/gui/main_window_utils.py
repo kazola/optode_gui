@@ -1,9 +1,9 @@
-import inspect
 import pathlib
+import time
+
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget
-
-from optode_gui.gui.tests.tests_optode import test_serial, test_battery, test_vcc5v
+from optode_gui.gui.tests.tests_optode import test_serial, test_battery, test_vcc5v, test_gpio_out, test_btn_scan_1
 from optode_gui.settings import ctx
 
 
@@ -52,24 +52,6 @@ def gui_busy_free():
     g_gui_busy = False
 
 
-def btn_tests(gui, ser):
-    if gui_busy_get(gui):
-        return
-    if not ser.is_open:
-        print('cannot open serial port')
-        return
-
-    gui_trace_clear(gui)
-
-    rv = test_serial(ser)
-    _gui_rv(gui, rv, 'test_serial')
-    rv = test_battery(ser)
-    _gui_rv(gui, rv, 'test_battery')
-    rv = test_vcc5v(ser)
-    _gui_rv(gui, rv, 'test_vcc5v')
-    gui_busy_free()
-
-
 def gui_setup_view(my_win):
     # qt designer stuff
     w = my_win
@@ -88,6 +70,7 @@ def gui_setup_view(my_win):
 def gui_setup_buttons(my_win):
     w = my_win
     w.btn_tests.clicked.connect(w.click_btn_tests)
+    w.btn_clr_log.clicked.connect(w.click_btn_clr_log)
 
 
 def gui_setup_window_center(my_win):
@@ -96,3 +79,34 @@ def gui_setup_window_center(my_win):
     c = QDesktopWidget().availableGeometry().center()
     r.moveCenter(c)
     my_win.move(r.topLeft())
+
+
+def btn_tests(gui, ser):
+    if gui_busy_get(gui):
+        return
+    if not ser.is_open:
+        print('cannot open serial port')
+        return
+
+    gui_trace_clear(gui)
+
+    rv = test_serial(ser)
+    _gui_rv(gui, rv, 'test_serial')
+
+    rv = test_battery(ser)
+    _gui_rv(gui, rv, 'test_battery')
+
+    rv = test_vcc5v(ser)
+    _gui_rv(gui, rv, 'test_vcc5v')
+
+    rv = test_gpio_out(ser)
+    _gui_rv(gui, rv, 'test_gpio_out_13')
+
+    s = '\nlook at scanner display now' \
+        '\nto see it switching...'
+    gui_trace(gui, s)
+    time.sleep(1)
+    rv = test_btn_scan_1(ser)
+    _gui_rv(gui, rv, 'test_btn_scan_1')
+
+    gui_busy_free()
