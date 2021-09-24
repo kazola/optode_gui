@@ -13,7 +13,7 @@ import serial
 
 
 # global serial port object
-GUI_SERIAL_PORT = '/dev/ttyACM1'
+GUI_SERIAL_PORT = '/dev/ttyACM0'
 GUI_SERIAL_DEF_TIMEOUT = .25
 ser = serial.Serial()
 ser.baudrate = 9600

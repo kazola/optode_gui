@@ -55,3 +55,16 @@ def test_btn_scan_1(ser) -> tuple:
     if a == b'0':
         return 0, ''
     return 1, ''
+
+
+def test_vcc3v_display(ser) -> tuple:
+    ser.write('6'.encode())
+    a = ser.readall()
+    if not a:
+        return 1, ''
+
+    # a: b'768'
+    print(a)
+    if int(a.decode()) < 100:
+        return 0, 'display off'
+    return 0, 'display on'

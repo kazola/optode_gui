@@ -3,7 +3,8 @@ import time
 
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget
-from optode_gui.gui.tests.tests_optode import test_serial, test_battery, test_vcc5v, test_gpio_out, test_btn_scan_1
+from optode_gui.gui.tests.tests_optode import test_serial, test_battery, test_vcc5v, test_gpio_out, test_btn_scan_1, \
+    test_vcc3v_display
 from optode_gui.settings import ctx
 
 
@@ -102,11 +103,10 @@ def btn_tests(gui, ser):
     rv = test_gpio_out(ser)
     _gui_rv(gui, rv, 'test_gpio_out_13')
 
-    s = '\nlook at scanner display now' \
-        '\nto see it switching...'
-    gui_trace(gui, s)
-    time.sleep(1)
     rv = test_btn_scan_1(ser)
     _gui_rv(gui, rv, 'test_btn_scan_1')
+
+    rv = test_vcc3v_display(ser)
+    _gui_rv(gui, rv, 'test_vcc3v_display')
 
     gui_busy_free()
