@@ -6,14 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1011</width>
-    <height>649</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1024</width>
+    <height>768</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>1024</width>
+     <height>768</height>
+    </size>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,2">
@@ -30,36 +42,6 @@
           <property name="bottomMargin">
            <number>12</number>
           </property>
-          <item row="5" column="1">
-           <widget class="QProgressBar" name="progressBar">
-            <property name="value">
-             <number>24</number>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="btn_clr_log">
-            <property name="styleSheet">
-             <string notr="true">font: 12pt &quot;DejaVu Sans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>clear log</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
           <item row="0" column="1">
            <spacer name="verticalSpacer">
             <property name="orientation">
@@ -73,8 +55,8 @@
             </property>
            </spacer>
           </item>
-          <item row="2" column="1">
-           <spacer name="verticalSpacer_4">
+          <item row="4" column="1">
+           <spacer name="verticalSpacer_5">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -86,18 +68,25 @@
             </property>
            </spacer>
           </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="btn_tests">
+          <item row="3" column="1">
+           <widget class="QPushButton" name="btn_clr_log">
             <property name="styleSheet">
              <string notr="true">font: 12pt &quot;DejaVu Sans&quot;;</string>
             </property>
             <property name="text">
-             <string>perform all tests</string>
+             <string>clear log</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
-           <spacer name="verticalSpacer_2">
+          <item row="5" column="1">
+           <widget class="QProgressBar" name="progressBar">
+            <property name="value">
+             <number>24</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <spacer name="verticalSpacer_4">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -122,8 +111,31 @@
             </property>
            </spacer>
           </item>
-          <item row="4" column="1">
-           <spacer name="verticalSpacer_5">
+          <item row="1" column="1">
+           <widget class="QPushButton" name="btn_tests">
+            <property name="styleSheet">
+             <string notr="true">font: 12pt &quot;DejaVu Sans&quot;;</string>
+            </property>
+            <property name="text">
+             <string>perform all tests</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="6" column="1">
+           <spacer name="verticalSpacer_2">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -179,6 +191,9 @@
             </property>
             <property name="styleSheet">
              <string notr="true">font: 12pt &quot;DejaVu Sans&quot;;</string>
+            </property>
+            <property name="autoScrollMargin">
+             <number>0</number>
             </property>
            </widget>
           </item>

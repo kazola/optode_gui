@@ -4,7 +4,7 @@ import time
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget
 from optode_gui.gui.tests.tests_optode import test_serial, test_battery, test_vcc5v, test_gpio_out, test_btn_scan_1, \
-    test_vcc3v_display
+    test_vcc3v_display, test_led_strip, test_vcc_wifi_1
 from optode_gui.settings import ctx
 
 
@@ -20,6 +20,8 @@ def gui_trace(gui, s):
         return
     gui.lst_trace.addItem(s)
     print(s)
+    time.sleep(.01)
+    gui.lst_trace.scrollToBottom()
 
 
 def _gui_rv(gui, rv, name):
@@ -82,6 +84,13 @@ def gui_setup_window_center(my_win):
     my_win.move(r.topLeft())
 
 
+def _sleep_with_timeout_n_message(gui, s, i):
+    gui_trace(gui, s)
+    for i in range(i):
+        gui_trace(gui, '.')
+        time.sleep(1)
+
+
 def btn_tests(gui, ser):
     if gui_busy_get(gui):
         return
@@ -90,6 +99,7 @@ def btn_tests(gui, ser):
         return
 
     gui_trace_clear(gui)
+    gui_trace(gui, '-------- start of tests --------')
 
     rv = test_serial(ser)
     _gui_rv(gui, rv, 'test_serial')
@@ -103,10 +113,20 @@ def btn_tests(gui, ser):
     rv = test_gpio_out(ser)
     _gui_rv(gui, rv, 'test_gpio_out_13')
 
-    rv = test_btn_scan_1(ser)
+    rv_scan_1 = rv = test_btn_scan_1(ser)
     _gui_rv(gui, rv, 'test_btn_scan_1')
 
-    rv = test_vcc3v_display(ser)
+    rv_vcc_3v_1 =rv = test_vcc3v_display(ser)
     _gui_rv(gui, rv, 'test_vcc3v_display')
 
+    rv = test_led_strip(ser)
+    _gui_rv(gui, rv, 'test_led_strip')
+
+    if rv_vcc_3v_1 != b'0':
+        s = 'wait 10 seconds before checking wi-fi'
+        _sleep_with_timeout_n_message(gui, s, 10)
+        rv = test_vcc_wifi_1(ser)
+        _gui_rv(gui, rv, 'test_vcc_wifi_1')
+
+    gui_trace(gui, '-------- end of tests --------')
     gui_busy_free()
