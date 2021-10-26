@@ -3,12 +3,16 @@ import time
 
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget
-from optode_gui.gui.tests.tests_optode import test_serial, test_battery, test_vcc5v, test_gpio_out, test_btn_scan_1, \
-    test_vcc3v_display, test_led_strip, test_vcc_wifi_1
+from optode_gui.gui.tests.tests_optode import test_serial_arduino, test_12v_arduino, test_5v_arduino, test_gpio_out_arduino, test_btn_scan_1, \
+    test_display_1, test_led_strip_arduino, test_wifi_1
 from optode_gui.settings import ctx
 
 
 g_gui_busy = False
+
+
+def gui_trace_clear(gui):
+    gui.lst_trace.clear()
 
 
 def gui_progress_bar_visible(gui, v):
@@ -24,7 +28,7 @@ def gui_trace(gui, s):
     gui.lst_trace.scrollToBottom()
 
 
-def _gui_rv(gui, rv, name):
+def gui_trace_rv(gui, rv, name):
     # rv: (code, msg)
     v, msg = rv
     if v == 0:
@@ -37,10 +41,7 @@ def _gui_rv(gui, rv, name):
         gui_trace(gui, s)
 
 
-def gui_trace_clear(gui):
-    gui.lst_trace.clear()
-
-
+# needed, GUI button presses are threaded
 def gui_busy_get(gui):
     global g_gui_busy
     if g_gui_busy:
@@ -82,51 +83,3 @@ def gui_setup_window_center(my_win):
     c = QDesktopWidget().availableGeometry().center()
     r.moveCenter(c)
     my_win.move(r.topLeft())
-
-
-def _sleep_with_timeout_n_message(gui, s, i):
-    gui_trace(gui, s)
-    for i in range(i):
-        gui_trace(gui, '.')
-        time.sleep(1)
-
-
-def btn_tests(gui, ser):
-    if gui_busy_get(gui):
-        return
-    if not ser.is_open:
-        print('cannot open serial port')
-        return
-
-    gui_trace_clear(gui)
-    gui_trace(gui, '-------- start of tests --------')
-
-    rv = test_serial(ser)
-    _gui_rv(gui, rv, 'test_serial')
-
-    rv = test_battery(ser)
-    _gui_rv(gui, rv, 'test_battery')
-
-    rv = test_vcc5v(ser)
-    _gui_rv(gui, rv, 'test_vcc5v')
-
-    rv = test_gpio_out(ser)
-    _gui_rv(gui, rv, 'test_gpio_out_13')
-
-    rv_scan_1 = rv = test_btn_scan_1(ser)
-    _gui_rv(gui, rv, 'test_btn_scan_1')
-
-    rv_vcc_3v_1 =rv = test_vcc3v_display(ser)
-    _gui_rv(gui, rv, 'test_vcc3v_display')
-
-    rv = test_led_strip(ser)
-    _gui_rv(gui, rv, 'test_led_strip')
-
-    if rv_vcc_3v_1 != b'0':
-        s = 'wait 10 seconds before checking wi-fi'
-        _sleep_with_timeout_n_message(gui, s, 10)
-        rv = test_vcc_wifi_1(ser)
-        _gui_rv(gui, rv, 'test_vcc_wifi_1')
-
-    gui_trace(gui, '-------- end of tests --------')
-    gui_busy_free()

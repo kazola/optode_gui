@@ -1,7 +1,4 @@
-import time
-
-
-def test_serial(ser) -> tuple:
+def test_serial_arduino(ser) -> tuple:
     ser.write('1'.encode())
     a = ser.readall()
     if a == b'hello':
@@ -9,7 +6,7 @@ def test_serial(ser) -> tuple:
     return 1, ''
 
 
-def test_battery(ser) -> tuple:
+def test_12v_arduino(ser) -> tuple:
     ser.write('2'.encode())
     a = ser.readall()
     if not a:
@@ -22,7 +19,7 @@ def test_battery(ser) -> tuple:
     return 1, s
 
 
-def test_vcc5v(ser) -> tuple:
+def test_5v_arduino(ser) -> tuple:
     ser.write('3'.encode())
     a = ser.readall()
     if not a:
@@ -35,7 +32,7 @@ def test_vcc5v(ser) -> tuple:
     return 1, s
 
 
-def test_gpio_out(ser) -> tuple:
+def test_gpio_out_arduino(ser) -> tuple:
     ser.write('4'.encode())
     a = ser.readall()
     if a == b'0':
@@ -57,7 +54,7 @@ def test_btn_scan_1(ser) -> tuple:
     return 1, ''
 
 
-def test_vcc3v_display(ser) -> tuple:
+def test_display_1(ser) -> tuple:
     ser.write('6'.encode())
     a = ser.readall()
     if not a:
@@ -70,7 +67,7 @@ def test_vcc3v_display(ser) -> tuple:
     return 0, 'display on'
 
 
-def test_led_strip(ser) -> tuple:
+def test_led_strip_arduino(ser) -> tuple:
     ser.write('7'.encode())
     a = ser.readall()
     if a == b'leds':
@@ -78,7 +75,7 @@ def test_led_strip(ser) -> tuple:
     return 1, ''
 
 
-def test_vcc_wifi_1(ser) -> tuple:
+def test_wifi_1(ser) -> tuple:
     ser.write('8'.encode())
     a = ser.readall()
     if not a:
