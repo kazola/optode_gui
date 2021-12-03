@@ -22,33 +22,41 @@ def btn_tests(gui, ser):
 
     gui_trace_clear(gui)
     gui_trace(gui, '-------- start of tests --------')
+    gui_trace(gui, '\n')
 
     rv = test_serial_arduino(ser)
     gui_trace_rv(gui, rv, 'test_serial')
+    gui_trace(gui, '\n')
 
     rv = test_12v_arduino(ser)
     gui_trace_rv(gui, rv, 'test_battery')
+    gui_trace(gui, '\n')
 
     rv = test_5v_arduino(ser)
     gui_trace_rv(gui, rv, 'test_vcc5v')
+    gui_trace(gui, '\n')
 
     rv = test_gpio_out_arduino(ser)
     gui_trace_rv(gui, rv, 'test_gpio_out_13')
+    gui_trace(gui, '\n')
 
-    rv_scan_1 = rv = test_btn_scan_1(ser)
-    gui_trace_rv(gui, rv, 'test_btn_scan_1')
+    #rv_scan_1 = rv = test_btn_scan_1(ser)
+    #gui_trace_rv(gui, rv, 'test_btn_scan_1')
+    #gui_trace(gui, '\n')
 
-    rv_vcc_3v_1 =rv = test_display_1(ser)
-    gui_trace_rv(gui, rv, 'test_vcc3v_display')
+    #rv_vcc_3v_1 =rv = test_display_1(ser)
+    #gui_trace_rv(gui, rv, 'test_vcc3v_display')
+    #gui_trace(gui, '\n')
 
-    rv = test_led_strip_arduino(ser)
-    gui_trace_rv(gui, rv, 'test_led_strip')
+    # rv = test_led_strip_arduino(ser)
+    # gui_trace_rv(gui, rv, 'test_led_strip')
 
-    if rv_vcc_3v_1 != b'0':
-        s = 'wait 10 seconds before checking wi-fi'
-        _sleep_with_timeout_n_message(gui, s, 10)
-        rv = test_wifi_1(ser)
-        gui_trace_rv(gui, rv, 'test_vcc_wifi_1')
+    #if rv_vcc_3v_1 != b'0':
+    #    s = 'checking wi-fi in 10 seconds...'
+    #    _sleep_with_timeout_n_message(gui, s, 10)
+    #    rv = test_wifi_1(ser)
+    #    gui_trace_rv(gui, rv, 'test_vcc_wifi_1')
+    #    gui_trace(gui, '\n')
 
     gui_trace(gui, '-------- end of tests --------')
     gui_busy_free()

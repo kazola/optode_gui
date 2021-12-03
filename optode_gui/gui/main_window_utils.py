@@ -75,6 +75,7 @@ def gui_setup_buttons(my_win):
     w = my_win
     w.btn_tests.clicked.connect(w.click_btn_tests)
     w.btn_clr_log.clicked.connect(w.click_btn_clr_log)
+    w.progressBar.setValue(0)
 
 
 def gui_setup_window_center(my_win):
