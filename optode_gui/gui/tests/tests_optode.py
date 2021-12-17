@@ -40,36 +40,10 @@ def test_gpio_out_arduino(ser) -> tuple:
     return 1, ''
 
 
-def test_btn_scan_1(ser) -> tuple:
-
-    ser.write('5'.encode())
-    a = bytes()
-    n = int(5 / .25)
-    for i in range(n):
-        # n times * timeout = .25
-        a += ser.read()
-
-    if a == b'0':
-        return 0, ''
-    return 1, ''
-
-
-def test_display_1(ser) -> tuple:
-    ser.write('6'.encode())
-    a = ser.readall()
-    if not a:
-        return 1, ''
-
-    # a: b'768'
-    print(a)
-    if int(a.decode()) < 100:
-        return 0, 'display off'
-    return 0, 'display on'
-
-
 def test_led_strip_arduino(ser) -> tuple:
     ser.write('7'.encode())
     a = ser.readall()
+    print(a)
     if a == b'leds':
         return 0, ''
     return 1, ''
@@ -86,3 +60,30 @@ def test_wifi_1(ser) -> tuple:
     if int(a.decode()) < 100:
         return 0, 'wifi_1 off'
     return 0, 'wifi_1 on'
+
+
+
+def test_btn_display_1_out(ser) -> tuple:
+
+    ser.write('5'.encode())
+    a = bytes()
+    n = int(5 / .25)
+    for i in range(n):
+        # n times * timeout = .25
+        a += ser.read()
+
+    if a == b'0':
+        return 0, ''
+    return 1, ''
+
+
+def test_display_1_in(ser) -> tuple:
+    ser.write('6'.encode())
+    a = ser.readall()
+    if not a:
+        return 1, ''
+
+    # a: b'768'
+    if int(a.decode()) < 100:
+        return 0, 'display off'
+    return 0, 'display on'

@@ -3,8 +3,8 @@ import time
 
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget
-from optode_gui.gui.tests.tests_optode import test_serial_arduino, test_12v_arduino, test_5v_arduino, test_gpio_out_arduino, test_btn_scan_1, \
-    test_display_1, test_led_strip_arduino, test_wifi_1
+from optode_gui.gui.tests.tests_optode import test_serial_arduino, test_12v_arduino, test_5v_arduino, test_gpio_out_arduino, test_btn_display_1_out, \
+    test_display_1_in, test_led_strip_arduino, test_wifi_1
 from optode_gui.settings import ctx
 
 
