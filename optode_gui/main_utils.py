@@ -53,6 +53,8 @@ def btn_tests(gui, ser):
     gui_trace_rv(gui, rv, 'test_vcc3v_display')
     gui_trace(gui, '\n')
 
+
+
     #if rv_vcc_3v_1 != b'0':
     #    s = 'checking wi-fi in 10 seconds...'
     #    _sleep_with_timeout_n_message(gui, s, 10)
