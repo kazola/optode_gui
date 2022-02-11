@@ -1,10 +1,7 @@
 import pathlib
 import time
-
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget
-from optode_gui.gui.tests.tests_optode import test_serial_arduino, test_12v_arduino, test_5v_arduino, test_gpio_out_arduino, test_btn_display_1_out, \
-    test_display_1_in, test_led_strip_arduino, test_wifi_1
 from optode_gui.settings import ctx
 
 
@@ -37,8 +34,7 @@ def gui_trace_rv(gui, rv, name):
         s = '[ ER ] {}'.format(name)
     gui_trace(gui, s)
     if msg:
-        s = '\t{}'.format(msg)
-        gui_trace(gui, s)
+        gui_trace(gui, '\t{}'.format(msg))
 
 
 # needed, GUI button presses are threaded

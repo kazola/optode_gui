@@ -4,17 +4,16 @@ from PyQt5.QtCore import pyqtSlot
 import optode_gui.gui.designer_main as _dm
 from PyQt5.QtWidgets import (QMainWindow)
 from optode_gui.gui.sig import create_gui_signals
-from optode_gui.gui.main_window_utils import (
+from optode_gui.gui.gui_utils import (
     gui_setup_view,
     gui_setup_window_center,
     gui_setup_buttons
 )
 import serial
+from optode_gui.main_utils import btn_tests
 
 
 # global serial port object
-from optode_gui.main_utils import btn_tests
-
 GUI_SERIAL_PORT = '/dev/ttyACM0'
 GUI_SERIAL_DEF_TIMEOUT = .25
 ser = serial.Serial()
