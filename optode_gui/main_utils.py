@@ -3,7 +3,7 @@ from optode_gui.gui.gui_utils import gui_busy_get, gui_trace_clear, gui_trace, g
     gui_busy_free
 from optode_gui.gui.tests.tests_optode import test_serial_arduino, test_12v_arduino, test_5v_arduino, \
     test_gpio_out_arduino, test_btn_display_1_out, \
-    test_display_1_in, test_led_strip_arduino, test_wifi_1, test_motor
+    test_display_1_in, test_led_strip_arduino, test_wifi_1, test_motor_adc, test_motor_movement
 
 
 def btn_tests(g, ser):
@@ -61,9 +61,16 @@ def btn_tests(g, ser):
     #     gt_rv(g, rv, 'test_vcc_wifi_1')
     #     gt(g, '\n')
 
-    rv = test_motor(ser)
-    gt_rv(g, rv, 'test_motor')
+    rv_adc_mot = rv = test_motor_adc(ser)
+    gt_rv(g, rv, 'test_motor_adc')
     gt(g, '\n')
+
+    if rv_adc_mot[0] == 0:
+        gt(g, 'see and hear motor moving...')
+        time.sleep(.1)
+        rv = test_motor_movement(ser)
+        gt_rv(g, rv, 'rv movement')
+        gt(g, '\n')
 
     gt(g, '-------- end of tests --------')
     gui_busy_free()

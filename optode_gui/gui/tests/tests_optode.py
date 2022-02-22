@@ -1,3 +1,6 @@
+import time
+
+
 def test_serial_arduino(ser) -> tuple:
     ser.write('1'.encode())
     a = ser.readall()
@@ -88,14 +91,30 @@ def test_wifi_1(ser) -> tuple:
     return 0, 'wifi_1 on'
 
 
-def test_motor(ser) -> tuple:
+def test_motor_adc(ser) -> tuple:
     ser.write('9'.encode())
+    a = ser.readall()
+    if not a:
+        print('k')
+        return 1, ''
+
+    # a: b'768'
+    s = 'motor ADC value: {}'.format(a.decode())
+    if int(a.decode()) > 900:
+        return 0, s
+    return 1, s
+
+
+def test_motor_movement(ser) -> tuple:
+    ser.write('a'.encode())
     a = bytes()
-    n = int(12 / .25)
+    # 2 x 1000 steps movement = 6 secs, wait 7
+    n = int(7 / .25)
     for i in range(n):
         # n times * timeout = .25
         a += ser.read()
 
-    if a == b'0':
+    # this must be checked visually
+    if a == b'movement':
         return 0, ''
     return 1, ''
