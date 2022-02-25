@@ -118,3 +118,11 @@ def test_motor_movement(ser) -> tuple:
     if a == b'movement':
         return 0, ''
     return 1, ''
+
+
+def test_motor_switches(ser) -> tuple:
+    ser.write('b'.encode())
+    a = ser.readall()
+    if not a:
+        return 1, ''
+    return 0, a.decode()

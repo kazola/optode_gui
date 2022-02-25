@@ -3,7 +3,7 @@ from optode_gui.gui.gui_utils import gui_busy_get, gui_trace_clear, gui_trace, g
     gui_busy_free
 from optode_gui.gui.tests.tests_optode import test_serial_arduino, test_12v_arduino, test_5v_arduino, \
     test_gpio_out_arduino, test_btn_display_1_out, \
-    test_display_1_in, test_led_strip_arduino, test_wifi_1, test_motor_adc, test_motor_movement
+    test_display_1_in, test_led_strip_arduino, test_wifi_1, test_motor_adc, test_motor_movement, test_motor_switches
 
 
 def btn_tests(g, ser):
@@ -33,26 +33,26 @@ def btn_tests(g, ser):
     # gt_rv(g, rv, 'test_battery')
     # gt(g, '\n')
 
-    # rv = test_led_strip_arduino(ser)
-    # gt_rv(gui, rv, 'test_led_strip')
-    # gt(gui, '\n')
-
     # rv = test_5v_arduino(ser)
-    # gt_rv(gui, rv, 'test_vcc5v')
-    # gt(gui, '\n')
+    # gt_rv(g, rv, 'test_vcc5v')
+    # gt(g, '\n')
 
     # rv = test_gpio_out_arduino(ser)
-    # gt_rv(gui, rv, 'test_gpio_out_13')
-    # gt(gui, '\n')
+    # gt_rv(g, rv, 'test_gpio_out_13')
+    # gt(g, '\n')
 
-    # rv = test_btn_display_1_out(ser)
-    # gt_rv(g, rv, 'test_btn_display_out_1')
+    # rv = test_led_strip_arduino(ser)
+    # gt_rv(g, rv, 'test_led_strip')
     # gt(g, '\n')
-    #
-    # rv_dis = rv = test_display_1_in(ser)
-    # gt_rv(g, rv, 'test_vcc3v_display')
-    # gt(g, '\n')
-    #
+
+    rv = test_btn_display_1_out(ser)
+    gt_rv(g, rv, 'test_btn_display_out_1')
+    gt(g, '\n')
+
+    rv_dis = rv = test_display_1_in(ser)
+    gt_rv(g, rv, 'test_vcc3v_display')
+    gt(g, '\n')
+
     # if rv_dis[1] == 'display on':
     #     for i in range(10):
     #         gt(g, 'will check wi-fi in {}'.format(10 - i))
@@ -65,12 +65,15 @@ def btn_tests(g, ser):
     gt_rv(g, rv, 'test_motor_adc')
     gt(g, '\n')
 
-    if rv_adc_mot[0] == 0:
-        gt(g, 'see and hear motor moving...')
-        time.sleep(.1)
-        rv = test_motor_movement(ser)
-        gt_rv(g, rv, 'rv movement')
-        gt(g, '\n')
+    gt(g, '[ .... ] look / hear motor moving')
+    time.sleep(.1)
+    rv = test_motor_movement(ser)
+    # gt_rv(g, rv, 'rv movement')
+    gt(g, '\n')
+
+    rv = test_motor_switches(ser)
+    gt_rv(g, rv, 'test_motor_switches')
+    gt(g, '\n')
 
     gt(g, '-------- end of tests --------')
     gui_busy_free()
