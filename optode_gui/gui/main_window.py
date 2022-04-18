@@ -9,17 +9,8 @@ from optode_gui.gui.gui_utils import (
     gui_setup_window_center,
     gui_setup_buttons
 )
-import serial
 from optode_gui.main_utils import btn_tests
-
-
-# global serial port object
-GUI_SERIAL_PORT = '/dev/ttyACM0'
-GUI_SERIAL_DEF_TIMEOUT = .25
-ser = serial.Serial()
-ser.baudrate = 9600
-ser.port = GUI_SERIAL_PORT
-ser.timeout = GUI_SERIAL_DEF_TIMEOUT
+from optode_gui.serial_utils import g_sp
 
 
 class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
@@ -29,16 +20,15 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
         gui_setup_window_center(self)
         gui_setup_buttons(self)
         self.gui_sig = create_gui_signals(self)
-
-        ser.open()
+        g_sp.open()
 
     @pyqtSlot(int, name='slot_progress_bar')
     def slot_progress_bar(self, v):
         self.p_bar.setValue(v)
 
     def _tests(self):
-        global ser
-        btn_tests(self, ser)
+        global g_sp
+        btn_tests(self, g_sp)
 
     # trick for responsive GUI
     @staticmethod
@@ -53,6 +43,9 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
     def closeEvent(self, _):
         """ pressed application window X to close it """
         _.accept()
-        if ser.is_open:
-            ser.close()
+        if g_sp.is_open:
+            g_sp.close()
         os._exit(0)
+
+
+

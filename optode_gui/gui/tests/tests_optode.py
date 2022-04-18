@@ -1,9 +1,12 @@
 import time
 
+from optode_gui.serial_utils import SERIAL_BYTE_TIMEOUT
+
 
 def test_serial_arduino(ser) -> tuple:
     ser.write('1'.encode())
     a = ser.readall()
+    print(a)
     if a == b'hello':
         return 0, ''
     return 1, ''
@@ -35,20 +38,11 @@ def test_5v_arduino(ser) -> tuple:
     return 1, s
 
 
-def test_gpio_out_arduino(ser) -> tuple:
-    ser.write('4'.encode())
-    a = ser.readall()
-    if a == b'0':
-        return 0, ''
-    return 1, ''
-
-
 def test_btn_display_1_out(ser) -> tuple:
     ser.write('5'.encode())
     a = bytes()
-    n = int(5 / .25)
+    n = int(5 / SERIAL_BYTE_TIMEOUT)
     for i in range(n):
-        # n times * timeout = .25
         a += ser.read()
 
     if a == b'0':
@@ -108,14 +102,15 @@ def test_motor_adc(ser) -> tuple:
 def test_motor_movement(ser) -> tuple:
     ser.write('a'.encode())
     a = bytes()
-    # 2 x 1000 steps movement = 6 secs, wait 7
-    n = int(7 / .25)
-    for i in range(n):
-        # n times * timeout = .25
+
+    # calculate waiting time w/ firmware code
+    delay_ms, steps_ms, slack_ms = 2 * 500, 2 * 300, 1000
+    wait_ms = delay_ms + steps_ms + slack_ms
+    till = time.perf_counter() + (wait_ms / 1000)
+    while time.perf_counter() < till:
         a += ser.read()
 
-    # this must be checked visually
-    if a == b'movement':
+    if a == b'motor_test_run':
         return 0, ''
     return 1, ''
 
