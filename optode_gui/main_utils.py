@@ -37,9 +37,9 @@ def btn_tests(g, ser):
     # gt_rv(g, rv, 'test_vcc5v')
     # gt(g, '\n')
 
-    # rv = test_led_strip_arduino(ser)
-    # gt_rv(g, rv, 'test_led_strip')
-    # gt(g, '\n')
+    rv = test_led_strip_arduino(ser)
+    gt_rv(g, rv, 'test_led_strip')
+    gt(g, '\n')
 
     # rv = test_btn_display_1_out(ser)
     # gt_rv(g, rv, 'test_btn_display_out_1')
@@ -67,9 +67,9 @@ def btn_tests(g, ser):
     gt_rv(g, rv, 'motor_test_run')
     gt(g, '\n')
 
-    # rv = test_motor_switches(ser)
-    # gt_rv(g, rv, 'test_motor_switches')
-    # gt(g, '\n')
+    #rv = test_motor_switches(ser)
+    #gt_rv(g, rv, 'test_motor_switches')
+    #gt(g, '\n')
 
     gt(g, '-------- end of tests --------')
     gui_busy_free()

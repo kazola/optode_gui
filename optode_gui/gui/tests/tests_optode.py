@@ -116,6 +116,7 @@ def test_motor_movement(ser) -> tuple:
 
 
 def test_motor_switches(ser) -> tuple:
+    time.sleep(2)
     ser.write('b'.encode())
     a = ser.readall()
     if not a:
