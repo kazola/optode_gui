@@ -15,12 +15,16 @@ if __name__ == "__main__":
     r = pathlib.Path.cwd() / 'optode_gui'
     ctx.dir_res = r / 'gui/res'
 
+    # ----------------------
+    # serial terminal app
+    # ----------------------
     if TEST_BASIC_UART_COMM:
-        # terminal app
         basic_uart_test()
 
+    # ------------------------
+    # Graphical Interface app
+    # ------------------------
     else:
-        # GUI app
         app = QApplication(sys.argv)
         mw = MainWindowOptodeGUI()
         mw.show()

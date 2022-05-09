@@ -41,10 +41,10 @@ def test_5v_arduino(ser) -> tuple:
 def test_btn_display_1_out(ser) -> tuple:
     ser.write('5'.encode())
     a = bytes()
-    n = int(5 / SERIAL_BYTE_TIMEOUT)
+    seconds = 4
+    n = int(seconds / SERIAL_BYTE_TIMEOUT)
     for i in range(n):
         a += ser.read()
-
     if a == b'0':
         return 0, ''
     return 1, ''
@@ -61,9 +61,6 @@ def test_adc_display_1_in(ser) -> tuple:
     print('adc display #1 value =', a)
     if int(a.decode()) < 100:
         return 0, 'display #1 is OFF'
-
-    # give time thing to boot
-    time.sleep(5)
     return 0, 'display #1 is ON'
 
 
@@ -79,7 +76,7 @@ def test_led_strip_arduino(ser) -> tuple:
 def test_btn_wifi_1_out(ser) -> tuple:
     ser.write('7'.encode())
     a = bytes()
-    n = int(2 / SERIAL_BYTE_TIMEOUT)
+    n = int(4 / SERIAL_BYTE_TIMEOUT)
     for i in range(n):
         a += ser.read()
 

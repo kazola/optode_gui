@@ -12,10 +12,6 @@ def gui_trace_clear(gui):
     gui.lst_trace.clear()
 
 
-def gui_progress_bar_visible(gui, v):
-    gui.p_bar.setVisible(v)
-
-
 def gui_trace(gui, s):
     if not s:
         return
@@ -28,16 +24,12 @@ def gui_trace(gui, s):
 def gui_trace_rv(gui, rv, name):
     # rv: (code, msg)
     v, msg = rv
-    if v == 0:
-        s = '[ OK ] {}'.format(name)
-    else:
-        s = '[ ER ] {}'.format(name)
-    gui_trace(gui, s)
+    if v:
+        gui_trace(gui, '[ ER ] {}'.format(name))
     if msg:
-        gui_trace(gui, '\t{}'.format(msg))
+        gui_trace(gui, '{}'.format(msg))
 
 
-# needed, GUI button presses are threaded
 def gui_busy_get(gui):
     global g_gui_busy
     if g_gui_busy:
@@ -53,24 +45,14 @@ def gui_busy_free():
 
 
 def gui_setup_view(my_win):
-    # qt designer stuff
     w = my_win
     w.setupUi(w)
-
-    # version on window title bar
     v = '1.0.00'
     s = ' GUI for optode v{}'.format(v)
     w.setWindowTitle(s)
     path = str(pathlib.Path(ctx.dir_res / 'icon_eye.ico'))
     w.setWindowIcon(QIcon(path))
-
     return w
-
-
-def gui_setup_buttons(my_win):
-    w = my_win
-    w.btn_tests.clicked.connect(w.click_btn_tests)
-    w.btn_clr_log.clicked.connect(w.click_btn_clr_log)
 
 
 def gui_setup_window_center(my_win):
@@ -79,3 +61,11 @@ def gui_setup_window_center(my_win):
     c = QDesktopWidget().availableGeometry().center()
     r.moveCenter(c)
     my_win.move(r.topLeft())
+
+
+def gui_setup_buttons(my_win):
+    w = my_win
+    w.btn_tests.clicked.connect(w.click_btn_tests)
+    w.btn_clr_log.clicked.connect(w.click_btn_clr_log)
+    w.btn_test_wifi.clicked.connect(w.click_btn_test_wifi)
+    w.btn_test_display.clicked.connect(w.click_btn_test_display)
