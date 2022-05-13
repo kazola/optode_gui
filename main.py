@@ -2,7 +2,7 @@ import pathlib
 import sys
 from PyQt5.QtWidgets import QApplication
 from optode_gui.gui.main_window import MainWindowOptodeGUI
-from optode_gui.serial_utils import basic_uart_test
+from optode_gui.utils_serial import basic_uart_test
 from optode_gui.settings import ctx
 
 

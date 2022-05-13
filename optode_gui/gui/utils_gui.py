@@ -1,6 +1,6 @@
 import pathlib
 import time
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDesktopWidget
 from optode_gui.settings import ctx
 
@@ -17,7 +17,7 @@ def gui_trace(gui, s):
         return
     gui.lst_trace.addItem(s)
     print(s)
-    time.sleep(.01)
+    time.sleep(.1)
     gui.lst_trace.scrollToBottom()
 
 
@@ -26,6 +26,8 @@ def gui_trace_rv(gui, rv, name):
     v, msg = rv
     if v:
         gui_trace(gui, '[ ER ] {}'.format(name))
+    else:
+        gui_trace(gui, '[ OK ] {}'.format(name))
     if msg:
         gui_trace(gui, '{}'.format(msg))
 
@@ -65,7 +67,10 @@ def gui_setup_window_center(my_win):
 
 def gui_setup_buttons(my_win):
     w = my_win
-    w.btn_tests.clicked.connect(w.click_btn_tests)
+    w.btn_serial.clicked.connect(w.click_btn_serial)
     w.btn_clr_log.clicked.connect(w.click_btn_clr_log)
-    w.btn_test_wifi.clicked.connect(w.click_btn_test_wifi)
-    w.btn_test_display.clicked.connect(w.click_btn_test_display)
+    w.btn_test_wifi_1.clicked.connect(w.click_btn_test_wifi_1)
+    w.btn_test_display_1.clicked.connect(w.click_btn_test_display_1)
+    w.btn_test_led_strip.clicked.connect(w.click_btn_test_led_strip)
+    w.btn_test_motor_move_left.clicked.connect(w.click_btn_test_motor_move_left)
+    w.btn_test_motor_move_right.clicked.connect(w.click_btn_test_motor_move_right)

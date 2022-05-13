@@ -84,7 +84,7 @@
           <item row="1" column="1">
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <widget class="QPushButton" name="btn_tests">
+             <widget class="QPushButton" name="btn_serial">
               <property name="font">
                <font>
                 <family>DejaVu Sans</family>
@@ -98,12 +98,12 @@
                <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
               </property>
               <property name="text">
-               <string>all tests</string>
+               <string>serial port</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btn_test_display">
+             <widget class="QPushButton" name="btn_test_display_1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -123,12 +123,12 @@
                <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
               </property>
               <property name="text">
-               <string>test display</string>
+               <string> display</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btn_test_wifi">
+             <widget class="QPushButton" name="btn_test_wifi_1">
               <property name="font">
                <font>
                 <family>DejaVu Sans</family>
@@ -142,7 +142,64 @@
                <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
               </property>
               <property name="text">
-               <string>test wi-fi</string>
+               <string>wi-fi</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_test_led_strip">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>14</pointsize>
+                <weight>50</weight>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
+              </property>
+              <property name="text">
+               <string>LEDs</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_test_motor_move_left">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>14</pointsize>
+                <weight>50</weight>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
+              </property>
+              <property name="text">
+               <string>motor left</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_test_motor_move_right">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>14</pointsize>
+                <weight>50</weight>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
+              </property>
+              <property name="text">
+               <string>motor right</string>
               </property>
              </widget>
             </item>
