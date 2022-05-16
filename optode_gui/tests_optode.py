@@ -51,54 +51,53 @@ def test_led_strip(ser) -> tuple:
     return 1, ''
 
 
-# ----------------
-# display section
-# ----------------
-
-def test_btn_display_1_out(ser) -> tuple:
-    ser.write('4'.encode())
+def test_btn_display_out(i, ser) -> tuple:
+    assert i in (1, 2)
+    _m = {1: '4', 2: '8'}
+    ser.write(_m[i].encode())
     a = _read_serial(ser, 4)
     if a == b'0':
         return 0, ''
     return 1, ''
 
 
-def test_adc_display_1_in(ser) -> tuple:
-    ser.write('5'.encode())
+def test_adc_display_in(i, ser) -> tuple:
+    assert i in (1, 2)
+    _m = {1: '5', 2: '9'}
+    ser.write(_m[i].encode())
     a = _read_serial(ser, 1)
     if not a:
         return 1, ''
 
     # a: b'768'
-    print('display #1 ADC value =', a)
+    print('\tdisplay #{} ADC value ='.format(i), a)
     if int(a.decode()) < 100:
-        return 0, 'display #1 is OFF'
-    return 0, 'display #1 is ON'
+        return 0, 'display #{} is OFF'.format(i)
+    return 0, 'display #{} is ON'.format(i)
 
 
-# ----------------
-# wi-fi section
-# ----------------
-
-def test_btn_wifi_1_out(ser) -> tuple:
-    ser.write('6'.encode())
-    a = _read_serial(ser, 3)
+def test_btn_wifi_out(i, ser) -> tuple:
+    assert i in (1, 2)
+    _m = {1: '6', 2: 'a'}
+    ser.write(_m[i].encode())
+    a = _read_serial(ser, 2)
     if a == b'0':
         return 0, ''
     return 1, ''
 
 
-def test_adc_wifi_1(ser) -> tuple:
-    ser.write('7'.encode())
-    a = _read_serial(ser, 1)
+def test_adc_wifi(i, ser) -> tuple:
+    assert i in (1, 2)
+    _m = {1: '7', 2: 'b'}
+    ser.write(_m[i].encode())
+    a = _read_serial(ser, 2)
+    print('\twi-fi #{} ADC value ='.format(i), a)
     if not a:
         return 1, ''
 
-    # a: b'768'
-    print('wi-fi #1 ADC value =', a)
     if int(a.decode()) < 100:
-        return 0, 'wi-fi #1 is OFF'
-    return 0, 'wi-fi #1 is ON'
+        return 0, 'wi-fi #{} is OFF'.format(i)
+    return 0, 'wi-fi #{} is ON'.format(i)
 
 
 # ----------------
@@ -109,7 +108,7 @@ def test_motor_adc(ser) -> tuple:
     # --------------------------------
     # needs voltage-divider at board
     # --------------------------------
-    ser.write('8'.encode())
+    ser.write('c'.encode())
     a = _read_serial(ser, 1)
     if not a:
         return 1, ''
@@ -122,7 +121,7 @@ def test_motor_adc(ser) -> tuple:
 
 
 def test_motor_move_left(ser) -> tuple:
-    ser.write('9'.encode())
+    ser.write('d'.encode())
     # look at seconds set in firmware test
     a = _read_serial(ser, 3)
     print(a)
@@ -132,7 +131,7 @@ def test_motor_move_left(ser) -> tuple:
 
 
 def test_motor_move_right(ser) -> tuple:
-    ser.write('a'.encode())
+    ser.write('e'.encode())
     # look at seconds set in firmware test
     a = _read_serial(ser, 3)
     print(a)
@@ -142,7 +141,7 @@ def test_motor_move_right(ser) -> tuple:
 
 
 def test_motor_switch_left(ser) -> tuple:
-    ser.write('b'.encode())
+    ser.write('f'.encode())
     a = _read_serial(ser, 1)
     if not a:
         return 1, ''
@@ -150,7 +149,7 @@ def test_motor_switch_left(ser) -> tuple:
 
 
 def test_motor_switch_right(ser) -> tuple:
-    ser.write('c'.encode())
+    ser.write('g'.encode())
     a = _read_serial(ser, 1)
     if not a:
         return 1, ''

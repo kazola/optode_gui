@@ -63,14 +63,19 @@ def gui_setup_window_center(my_win):
     c = QDesktopWidget().availableGeometry().center()
     r.moveCenter(c)
     my_win.move(r.topLeft())
+    pass
 
 
 def gui_setup_buttons(my_win):
     w = my_win
     w.btn_serial.clicked.connect(w.click_btn_serial)
     w.btn_clr_log.clicked.connect(w.click_btn_clr_log)
-    w.btn_test_wifi_1.clicked.connect(w.click_btn_test_wifi_1)
+
     w.btn_test_display_1.clicked.connect(w.click_btn_test_display_1)
+    w.btn_test_wifi_1.clicked.connect(w.click_btn_test_wifi_1)
+    w.btn_test_display_2.clicked.connect(w.click_btn_test_display_2)
+    w.btn_test_wifi_2.clicked.connect(w.click_btn_test_wifi_2)
+
     w.btn_test_led_strip.clicked.connect(w.click_btn_test_led_strip)
     w.btn_test_motor_move_left.clicked.connect(w.click_btn_test_motor_move_left)
     w.btn_test_motor_move_right.clicked.connect(w.click_btn_test_motor_move_right)

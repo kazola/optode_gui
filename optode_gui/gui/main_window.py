@@ -1,5 +1,8 @@
 import os
 import threading as th
+
+from serial import SerialException
+
 import optode_gui.gui.designer_main as _dm
 from PyQt5.QtWidgets import (QMainWindow)
 from optode_gui.gui.sig import create_gui_signals
@@ -8,8 +11,9 @@ from optode_gui.gui.utils_gui import (
     gui_setup_window_center,
     gui_setup_buttons
 )
-from optode_gui.utils_main import btn_test_wifi_1, btn_test_display_1, btn_test_led_strip, \
-    btn_test_motor_move_left, btn_test_motor_move_right, decorator_setup, btn_test_serial
+from optode_gui.utils_main import btn_test_led_strip, \
+    btn_test_motor_move_left, btn_test_motor_move_right, decorator_setup, btn_test_serial, btn_test_display, \
+    btn_test_wifi
 from optode_gui.utils_serial import g_sp
 
 
@@ -20,34 +24,42 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
         gui_setup_window_center(self)
         gui_setup_buttons(self)
         self.gui_sig = create_gui_signals(self)
-        g_sp.open()
+        self._gui_serial_open()
 
         # allows cleaner code
         decorator_setup(self, g_sp)
 
     @staticmethod
-    def _test_serial(): btn_test_serial()
-    def click_btn_serial(self): self._th(self._test_serial)
+    def _ts(): btn_test_serial()
+    def click_btn_serial(self): self._th(self._ts)
 
     @staticmethod
-    def _test_wifi_1(): btn_test_wifi_1()
-    def click_btn_test_wifi_1(self): self._th(self._test_wifi_1)
+    def _td1(): btn_test_display(1)
+    def click_btn_test_display_1(self): self._th(self._td1)
 
     @staticmethod
-    def _test_display_1(): btn_test_display_1()
-    def click_btn_test_display_1(self): self._th(self._test_display_1)
+    def _tw1(): btn_test_wifi(1)
+    def click_btn_test_wifi_1(self): self._th(self._tw1)
+
+    @staticmethod
+    def _td2(): btn_test_display(2)
+    def click_btn_test_display_2(self): self._th(self._td2)
+
+    @staticmethod
+    def _tw2(): btn_test_wifi(2)
+    def click_btn_test_wifi_2(self): self._th(self._tw2)
 
     @staticmethod
     def _test_led_strip(): btn_test_led_strip()
     def click_btn_test_led_strip(self): self._th(self._test_led_strip)
 
     @staticmethod
-    def _test_motor_move_left(): btn_test_motor_move_left()
-    def click_btn_test_motor_move_left(self): self._th(self._test_motor_move_left)
+    def _tml(): btn_test_motor_move_left()
+    def click_btn_test_motor_move_left(self): self._th(self._tml)
 
     @staticmethod
-    def _test_motor_move_right(): btn_test_motor_move_right()
-    def click_btn_test_motor_move_right(self): self._th(self._test_motor_move_right)
+    def _tmr(): btn_test_motor_move_right()
+    def click_btn_test_motor_move_right(self): self._th(self._tmr)
 
     @staticmethod
     def _th(cb):
@@ -63,5 +75,10 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
     def click_btn_clr_log(self):
         self.lst_trace.clear()
 
-
-
+    @staticmethod
+    def _gui_serial_open():
+        try:
+            g_sp.open()
+        except SerialException:
+            print('error: GUI cannot open serial {}'.format(g_sp.port))
+            os._exit(1)

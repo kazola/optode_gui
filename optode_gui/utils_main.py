@@ -1,10 +1,11 @@
 import time
 from optode_gui.gui.utils_gui import gui_busy_get, gui_trace, gui_trace_rv, \
     gui_busy_free
-from optode_gui.gui.tests.tests_optode import test_serial, test_power_adc_12v, \
-    test_btn_display_1_out, \
-    test_adc_display_1_in, test_led_strip, test_adc_wifi_1, test_motor_adc, \
-    test_btn_wifi_1_out, test_motor_move_left, test_motor_move_right, test_motor_switch_left, test_motor_switch_right
+from optode_gui.tests_optode import test_serial, test_power_adc_12v, \
+    test_led_strip, test_motor_adc, \
+    test_motor_move_left, test_motor_move_right, test_motor_switch_left, test_motor_switch_right, \
+    test_btn_display_out, test_adc_display_in, test_btn_wifi_out, test_adc_wifi
+
 
 # shorter code
 gt = gui_trace
@@ -32,10 +33,10 @@ def _post():
 
 
 def decorator_serial(func):
-    def wrapper():
+    def wrapper(args=''):
         if _pre():
             return 1
-        func()
+        func(args)
         _post()
     return wrapper
 
@@ -48,7 +49,7 @@ def decorator_setup(g, ser):
 
 
 @decorator_serial
-def btn_test_serial():
+def btn_test_serial(args=None):
     gt(g_g, 'testing serial port')
     time.sleep(.1)
     rv = test_serial(g_ser)
@@ -56,39 +57,42 @@ def btn_test_serial():
 
 
 @decorator_serial
-def btn_test_display_1():
-    gt(g_g, 'look at iris #1 display')
-    rv = test_btn_display_1_out(g_ser)
-    gt_rv(g_g, rv, 'test_btn_display_out_1')
-    rv = test_adc_display_1_in(g_ser)
-    gt_rv(g_g, rv, 'test_adc_display_1')
+def btn_test_display(i: int):
+    assert i in (1, 2)
+    gt(g_g, 'look at iris #{} display'.format(i))
+    rv = test_btn_display_out(i, g_ser)
+    gt_rv(g_g, rv, 'test_btn_display_out_{}'.format(i))
+    rv = test_adc_display_in(i, g_ser)
+    gt_rv(g_g, rv, 'test_adc_display_{}'.format(i))
 
 
 @decorator_serial
-def btn_test_wifi_1():
-    rv = test_adc_display_1_in(g_ser)
-    gt_rv(g_g, rv, 'test_adc_display_1')
+def btn_test_wifi(i: int):
+    assert i in (1, 2)
+    rv = test_adc_display_in(i, g_ser)
+    gt_rv(g_g, rv, 'test_adc_display_{}'.format(i))
     if rv[1].endswith('OFF'):
         gt(g_g, 'display OFF, not testing wi-fi')
         gui_busy_free()
         return
 
-    gt(g_g, 'toggling wi-fi')
-    rv = test_btn_wifi_1_out(g_ser)
-    gt_rv(g_g, rv, 'test_btn_wifi_1_out')
-    rv = test_adc_wifi_1(g_ser)
-    gt_rv(g_g, rv, 'test_adc_wifi_1')
+    gt(g_g, 'toggling wi-fi {}'.format(i))
+    rv = test_btn_wifi_out(i, g_ser)
+    gt_rv(g_g, rv, 'test_btn_wifi_{}_out'.format(i))
+
+    rv = test_adc_wifi(i, g_ser)
+    gt_rv(g_g, rv, 'test_adc_wifi_{}'.format(i))
 
 
 @decorator_serial
-def btn_test_led_strip():
+def btn_test_led_strip(args=None):
     gt(g_g, 'testing led strip')
     rv = test_led_strip(g_ser)
     gt_rv(g_g, rv, 'test_led_strip')
 
 
 @decorator_serial
-def btn_test_motor_move_left():
+def btn_test_motor_move_left(args=None):
     gt(g_g, 'motor should spin left')
     time.sleep(.1)
     rv = test_motor_move_left(g_ser)
@@ -96,7 +100,7 @@ def btn_test_motor_move_left():
 
 
 @decorator_serial
-def btn_test_motor_move_right():
+def btn_test_motor_move_right(args=None):
     gt(g_g, 'motor should spin right')
     time.sleep(.1)
     rv = test_motor_move_right(g_ser)
@@ -104,26 +108,26 @@ def btn_test_motor_move_right():
 
 
 @decorator_serial
-def btn_test_motor_adc():
+def btn_test_motor_adc(args=None):
     rv = test_motor_adc(g_ser)
     gt_rv(g_g, rv, 'test_adc_motor')
 
 
 @decorator_serial
-def btn_test_motor_switch_left():
+def btn_test_motor_switch_left(args=None):
     rv = test_motor_switch_left(g_ser)
     gt_rv(g_g, rv, 'test_motor_switch_left')
     gt(g_g, '\n')
 
 
 @decorator_serial
-def btn_test_motor_switch_right():
+def btn_test_motor_switch_right(args=None):
     rv = test_motor_switch_right(g_ser)
     gt_rv(g_g, rv, 'test_motor_switch_right')
     gt(g_g, '\n')
 
 
 @decorator_serial
-def btn_test_battery_adc():
+def btn_test_battery_adc(args=None):
     rv = test_power_adc_12v(g_ser)
     gt_rv(g_g, rv, 'test_adc_battery')
