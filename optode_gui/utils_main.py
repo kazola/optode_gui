@@ -3,7 +3,7 @@ from optode_gui.gui.utils_gui import gui_busy_get, gui_trace, gui_trace_rv, \
     gui_busy_free
 from optode_gui.tests_optode import test_serial, test_power_adc_12v, \
     test_led_strip, test_motor_adc, \
-    test_motor_move_left, test_motor_move_right, test_motor_switch_left, test_motor_switch_right, \
+    test_motor_move_left, test_motor_move_right, test_motor_limit_left, test_motor_limit_right, \
     test_btn_display_out, test_adc_display_in, test_btn_wifi_out, test_adc_wifi
 
 
@@ -108,6 +108,27 @@ def btn_test_motor_move_right(args=None):
 
 
 @decorator_serial
+def btn_test_motor_limit_left(args=None):
+    gt(g_g, 'press motor limit left')
+    time.sleep(.1)
+    rv = test_motor_limit_left(g_ser)
+    gt_rv(g_g, rv, 'test_motor_limit_left')
+
+
+@decorator_serial
+def btn_test_motor_limit_right(args=None):
+    gt(g_g, 'press motor limit right')
+    time.sleep(.1)
+    rv = test_motor_limit_right(g_ser)
+    gt_rv(g_g, rv, 'test_motor_limit_right')
+
+
+
+
+
+
+
+@decorator_serial
 def btn_test_motor_adc(args=None):
     rv = test_motor_adc(g_ser)
     gt_rv(g_g, rv, 'test_adc_motor')
@@ -115,14 +136,14 @@ def btn_test_motor_adc(args=None):
 
 @decorator_serial
 def btn_test_motor_switch_left(args=None):
-    rv = test_motor_switch_left(g_ser)
+    rv = test_motor_limit_left(g_ser)
     gt_rv(g_g, rv, 'test_motor_switch_left')
     gt(g_g, '\n')
 
 
 @decorator_serial
 def btn_test_motor_switch_right(args=None):
-    rv = test_motor_switch_right(g_ser)
+    rv = test_motor_limit_right(g_ser)
     gt_rv(g_g, rv, 'test_motor_switch_right')
     gt(g_g, '\n')
 

@@ -35,7 +35,7 @@ def gui_trace_rv(gui, rv, name):
 def gui_busy_get(gui):
     global g_gui_busy
     if g_gui_busy:
-        gui_trace(gui, 'wait, I am busy')
+        gui_trace(gui, '..... wait, I am busy')
         return True
     g_gui_busy = True
     return False
@@ -79,3 +79,6 @@ def gui_setup_buttons(my_win):
     w.btn_test_led_strip.clicked.connect(w.click_btn_test_led_strip)
     w.btn_test_motor_move_left.clicked.connect(w.click_btn_test_motor_move_left)
     w.btn_test_motor_move_right.clicked.connect(w.click_btn_test_motor_move_right)
+    w.btn_test_motor_limit_left.clicked.connect(w.click_btn_test_motor_limit_left)
+    w.btn_test_motor_limit_right.clicked.connect(w.click_btn_test_motor_limit_right)
+

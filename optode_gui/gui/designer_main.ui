@@ -35,14 +35,39 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
         <item>
-         <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,1,1,1,1,1,1,1" columnstretch="1,2,2,1">
+         <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,1,1,1,1,1,1,1,1" columnstretch="1,2,2,1">
           <property name="topMargin">
            <number>12</number>
           </property>
           <property name="bottomMargin">
            <number>12</number>
           </property>
-          <item row="6" column="1" colspan="2">
+          <item row="2" column="1">
+           <widget class="QPushButton" name="btn_test_display_1">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>DejaVu Sans</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
+            </property>
+            <property name="text">
+             <string>display 1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1" colspan="2">
            <widget class="QPushButton" name="btn_clr_log">
             <property name="font">
              <font>
@@ -61,8 +86,14 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QPushButton" name="btn_serial">
+          <item row="2" column="2">
+           <widget class="QPushButton" name="btn_test_display_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="font">
              <font>
               <family>DejaVu Sans</family>
@@ -76,7 +107,103 @@
              <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
             </property>
             <property name="text">
-             <string>serial port</string>
+             <string> display 2</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QPushButton" name="btn_test_motor_move_left">
+            <property name="font">
+             <font>
+              <family>DejaVu Sans</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
+            </property>
+            <property name="text">
+             <string>motor left</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <spacer name="verticalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="4" column="3">
+           <spacer name="horizontalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="4" column="1" colspan="2">
+           <widget class="QPushButton" name="btn_test_led_strip">
+            <property name="font">
+             <font>
+              <family>DejaVu Sans</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
+            </property>
+            <property name="text">
+             <string>LEDs</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="btn_test_wifi_1">
+            <property name="font">
+             <font>
+              <family>DejaVu Sans</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
+            </property>
+            <property name="text">
+             <string>wi-fi 1</string>
             </property>
            </widget>
           </item>
@@ -118,8 +245,8 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="1" colspan="2">
-           <widget class="QPushButton" name="btn_test_led_strip">
+          <item row="1" column="1" colspan="2">
+           <widget class="QPushButton" name="btn_serial">
             <property name="font">
              <font>
               <family>DejaVu Sans</family>
@@ -133,45 +260,7 @@
              <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
             </property>
             <property name="text">
-             <string>LEDs</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <spacer name="verticalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="btn_test_display_2">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>DejaVu Sans</family>
-              <pointsize>14</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
-            </property>
-            <property name="text">
-             <string> display 2</string>
+             <string>serial port</string>
             </property>
            </widget>
           </item>
@@ -188,21 +277,8 @@
             </property>
            </spacer>
           </item>
-          <item row="0" column="1">
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="5" column="1">
-           <widget class="QPushButton" name="btn_test_motor_move_left">
+          <item row="6" column="1">
+           <widget class="QPushButton" name="btn_test_motor_limit_left">
             <property name="font">
              <font>
               <family>DejaVu Sans</family>
@@ -216,12 +292,12 @@
              <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
             </property>
             <property name="text">
-             <string>motor left</string>
+             <string>limit left</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="btn_test_wifi_1">
+          <item row="6" column="2">
+           <widget class="QPushButton" name="btn_test_motor_limit_right">
             <property name="font">
              <font>
               <family>DejaVu Sans</family>
@@ -235,47 +311,9 @@
              <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
             </property>
             <property name="text">
-             <string>wi-fi 1</string>
+             <string>limit right</string>
             </property>
            </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="btn_test_display_1">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>DejaVu Sans</family>
-              <pointsize>14</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>display 1</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="3">
-           <spacer name="horizontalSpacer_9">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </item>

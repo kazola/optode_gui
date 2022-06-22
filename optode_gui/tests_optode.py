@@ -90,7 +90,7 @@ def test_adc_wifi(i, ser) -> tuple:
     assert i in (1, 2)
     _m = {1: '7', 2: 'b'}
     ser.write(_m[i].encode())
-    a = _read_serial(ser, 2)
+    a = _read_serial(ser, 3)
     print('\twi-fi #{} ADC value ='.format(i), a)
     if not a:
         return 1, ''
@@ -140,7 +140,7 @@ def test_motor_move_right(ser) -> tuple:
     return 1, ''
 
 
-def test_motor_switch_left(ser) -> tuple:
+def test_motor_limit_left(ser) -> tuple:
     ser.write('f'.encode())
     a = _read_serial(ser, 1)
     if not a:
@@ -148,7 +148,7 @@ def test_motor_switch_left(ser) -> tuple:
     return 0, a.decode()
 
 
-def test_motor_switch_right(ser) -> tuple:
+def test_motor_limit_right(ser) -> tuple:
     ser.write('g'.encode())
     a = _read_serial(ser, 1)
     if not a:

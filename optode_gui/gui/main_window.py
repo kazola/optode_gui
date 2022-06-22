@@ -13,7 +13,7 @@ from optode_gui.gui.utils_gui import (
 )
 from optode_gui.utils_main import btn_test_led_strip, \
     btn_test_motor_move_left, btn_test_motor_move_right, decorator_setup, btn_test_serial, btn_test_display, \
-    btn_test_wifi
+    btn_test_wifi, btn_test_motor_limit_right, btn_test_motor_limit_left
 from optode_gui.utils_serial import g_sp
 
 
@@ -62,6 +62,14 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
     def click_btn_test_motor_move_right(self): self._th(self._tmr)
 
     @staticmethod
+    def _tll(): btn_test_motor_limit_left()
+    def click_btn_test_motor_limit_left(self): self._th(self._tll)
+
+    @staticmethod
+    def _tlr(): btn_test_motor_limit_right()
+    def click_btn_test_motor_limit_right(self): self._th(self._tlr)
+
+    @staticmethod
     def _th(cb):
         # trick for responsive GUI
         th.Thread(target=cb).start()
@@ -75,10 +83,10 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
     def click_btn_clr_log(self):
         self.lst_trace.clear()
 
-    @staticmethod
-    def _gui_serial_open():
+    def _gui_serial_open(self):
         try:
             g_sp.open()
+            self.lst_trace.addItem("using port {}".format(g_sp.port))
         except SerialException:
             print('error: GUI cannot open serial {}'.format(g_sp.port))
             os._exit(1)
