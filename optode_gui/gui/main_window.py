@@ -1,19 +1,9 @@
 import os
 import threading as th
-
 from serial import SerialException
-
 import optode_gui.gui.designer_main as _dm
 from PyQt5.QtWidgets import (QMainWindow)
-from optode_gui.gui.sig import create_gui_signals
-from optode_gui.gui.utils_gui import (
-    gui_setup_view,
-    gui_setup_window_center,
-    gui_setup_buttons
-)
-from optode_gui.utils_main import btn_test_led_strip, \
-    btn_test_motor_move_left, btn_test_motor_move_right, decorator_setup, btn_test_serial, btn_test_display, \
-    btn_test_wifi, btn_test_motor_limit_right, btn_test_motor_limit_left
+from optode_gui.gui.utils_main_window import *
 from optode_gui.utils_serial import g_sp
 
 
@@ -23,50 +13,50 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
         gui_setup_view(self)
         gui_setup_window_center(self)
         gui_setup_buttons(self)
-        self.gui_sig = create_gui_signals(self)
+        self.gui_sig = gui_create_signals(self)
         self._gui_serial_open()
 
         # allows cleaner code
-        decorator_setup(self, g_sp)
+        gui_setup_decorator_serial(self, g_sp)
 
     @staticmethod
-    def _ts(): btn_test_serial()
+    def _ts(): gui_btn_test_serial()
     def click_btn_serial(self): self._th(self._ts)
 
     @staticmethod
-    def _td1(): btn_test_display(1)
+    def _td1(): gui_btn_test_display(1)
     def click_btn_test_display_1(self): self._th(self._td1)
 
     @staticmethod
-    def _tw1(): btn_test_wifi(1)
+    def _tw1(): gui_btn_test_wifi(1)
     def click_btn_test_wifi_1(self): self._th(self._tw1)
 
     @staticmethod
-    def _td2(): btn_test_display(2)
+    def _td2(): gui_btn_test_display(2)
     def click_btn_test_display_2(self): self._th(self._td2)
 
     @staticmethod
-    def _tw2(): btn_test_wifi(2)
+    def _tw2(): gui_btn_test_wifi(2)
     def click_btn_test_wifi_2(self): self._th(self._tw2)
 
     @staticmethod
-    def _test_led_strip(): btn_test_led_strip()
+    def _test_led_strip(): gui_btn_test_led_strip()
     def click_btn_test_led_strip(self): self._th(self._test_led_strip)
 
     @staticmethod
-    def _tml(): btn_test_motor_move_left()
+    def _tml(): gui_btn_test_motor_move_left()
     def click_btn_test_motor_move_left(self): self._th(self._tml)
 
     @staticmethod
-    def _tmr(): btn_test_motor_move_right()
+    def _tmr(): gui_btn_test_motor_move_right()
     def click_btn_test_motor_move_right(self): self._th(self._tmr)
 
     @staticmethod
-    def _tll(): btn_test_motor_limit_left()
+    def _tll(): gui_btn_test_motor_limit_left()
     def click_btn_test_motor_limit_left(self): self._th(self._tll)
 
     @staticmethod
-    def _tlr(): btn_test_motor_limit_right()
+    def _tlr(): gui_btn_test_motor_limit_right()
     def click_btn_test_motor_limit_right(self): self._th(self._tlr)
 
     @staticmethod

@@ -1,7 +1,8 @@
 import os
+import time
 
 import serial
-
+from serial import SerialException
 
 SERIAL_PORT_ARDUINO_MEGA = '/dev/ttyACM0'
 SERIAL_PORT_ARDUINO_4808_0 = '/dev/ttyUSB0'
@@ -19,11 +20,14 @@ g_sp.port = SERIAL_PORT
 g_sp.timeout = SERIAL_BYTE_TIMEOUT
 
 
-def basic_uart_test():
-    g_sp.open()
-    if g_sp.is_open:
-        print('ok')
-        while 1:
-            rv = g_sp.readall()
-            print(rv)
-    g_sp.close()
+def get_answer_from_optode(ser, timeout_secs=1):
+    a = bytes()
+    t = time.perf_counter() + timeout_secs
+    while 1:
+        if time.perf_counter() > t:
+            break
+        try:
+            a += ser.read()
+        except SerialException:
+            pass
+    return a
