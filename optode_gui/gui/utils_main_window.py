@@ -4,7 +4,7 @@ import time
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDesktopWidget
 from optode_gui.settings import ctx
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, QRect
 from PyQt5.QtCore import QObject
 
 
@@ -34,13 +34,12 @@ def gui_trace_rv(gui, rv, name):
     # rv: (code, msg)
     v, msg = rv
     if v:
-        gui_trace(gui, '[ ER ] {}'.format(name))
+        gui_trace(gui, '\t[ ER ] {}'.format(name))
     else:
-        # removing this cleans trace output a lot
-        # gui_trace(gui, '[ OK ] {}'.format(name))
-        pass
+        # this pollutes a bit the output but, meh
+        gui_trace(gui, '\t[ OK ] {}'.format(name))
     if msg:
-        gui_trace(gui, '{}'.format(msg))
+        gui_trace(gui, '\t{}'.format(msg))
 
 
 # shorter code and global variables

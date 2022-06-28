@@ -14,8 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1536, 1024)
-        MainWindow.setMinimumSize(QtCore.QSize(1536, 1024))
+        MainWindow.resize(1536, 1536)
+        MainWindow.setMinimumSize(QtCore.QSize(1536, 1536))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setMinimumSize(QtCore.QSize(1024, 768))
         self.centralwidget.setObjectName("centralwidget")
