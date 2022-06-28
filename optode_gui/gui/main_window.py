@@ -4,7 +4,7 @@ from serial import SerialException
 import optode_gui.gui.designer_main as _dm
 from PyQt5.QtWidgets import (QMainWindow)
 from optode_gui.gui.utils_main_window import *
-from optode_gui.utils_serial import g_sp
+from optode_gui.utils_serial import g_sp, get_list_serial_ports
 
 
 class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
@@ -14,9 +14,7 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
         gui_setup_window_center(self)
         gui_setup_buttons(self)
         self.gui_sig = gui_create_signals(self)
-        self._gui_serial_open()
-
-        # allows cleaner code
+        self._gui_serial_list()
         gui_setup_decorator_serial(self, g_sp)
 
     @staticmethod
@@ -85,10 +83,11 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
     def click_btn_clr_log(self):
         self.lst_trace.clear()
 
-    def _gui_serial_open(self):
-        try:
-            g_sp.open()
-            self.lst_trace.addItem("using port {}".format(g_sp.port))
-        except SerialException:
-            print('error: GUI cannot open serial {}'.format(g_sp.port))
-            os._exit(1)
+    def _gui_serial_list(self):
+        rv = get_list_serial_ports()
+        for _ in rv:
+            self.combo_ports.addItem('   ' + _)
+
+        # hack to choose last one in list
+        c = self.combo_ports.count()
+        self.combo_ports.setCurrentIndex(c - 1)

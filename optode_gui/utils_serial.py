@@ -1,3 +1,4 @@
+import glob
 import os
 import time
 import serial
@@ -35,3 +36,25 @@ def get_answer_from_optode(ser, timeout_secs=1):
         except SerialException:
             pass
     return a
+
+
+def get_list_serial_ports():
+    sp_win = ['COM%s' % (i + 1) for i in range(256)]
+    sp_lin = glob.glob('/dev/tty[A-Za-z]*')
+    sp_dar = glob.glob('/dev/tty.*')
+    if platform.system() == 'Windows':
+        sp = sp_win
+    elif platform.system() == 'Linux':
+        sp = sp_lin
+    else:
+        sp = sp_dar
+
+    rv = []
+    for p in sp:
+        try:
+            s = serial.Serial(p)
+            s.close()
+            rv.append(p)
+        except (OSError, serial.SerialException):
+            pass
+    return rv

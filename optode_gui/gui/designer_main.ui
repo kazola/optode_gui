@@ -35,7 +35,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
         <item>
-         <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,1,1,1,1,1,1,1,1,1,1,1,1" columnstretch="1,1,1,1,0">
+         <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,1,1,1,1,1,1,1,1,1,1,1,1" columnstretch="1,1,1,1,1">
           <property name="topMargin">
            <number>12</number>
           </property>
@@ -427,25 +427,6 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1" colspan="3">
-           <widget class="QPushButton" name="btn_serial">
-            <property name="font">
-             <font>
-              <family>DejaVu Sans</family>
-              <pointsize>14</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
-            </property>
-            <property name="text">
-             <string>serial port</string>
-            </property>
-           </widget>
-          </item>
           <item row="6" column="3">
            <widget class="QPushButton" name="btn_test_motor_move_right">
             <property name="font">
@@ -480,6 +461,38 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="btn_serial">
+            <property name="font">
+             <font>
+              <family>DejaVu Sans</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
+            </property>
+            <property name="text">
+             <string>serial port</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QComboBox" name="combo_ports">
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="insertPolicy">
+             <enum>QComboBox::InsertAtTop</enum>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

@@ -7,6 +7,8 @@ from optode_gui.settings import ctx
 from PyQt5.QtCore import pyqtSignal, QRect
 from PyQt5.QtCore import QObject
 
+from optode_gui.utils_serial import g_sp
+
 
 class GUISignalsOptode(QObject):
     p_bar = pyqtSignal(int)
@@ -90,8 +92,10 @@ def gui_setup_buttons(my_win):
     w.btn_clr_log.clicked.connect(w.click_btn_clr_log)
 
     w.btn_test_display_1.clicked.connect(w.click_btn_test_display_1)
-    w.btn_test_wifi_1.clicked.connect(w.click_btn_test_wifi_1)
     w.btn_test_display_2.clicked.connect(w.click_btn_test_display_2)
+    w.btn_test_scan_1.clicked.connect(w.click_btn_test_scan_1)
+    w.btn_test_scan_2.clicked.connect(w.click_btn_test_scan_2)
+    w.btn_test_wifi_1.clicked.connect(w.click_btn_test_wifi_1)
     w.btn_test_wifi_2.clicked.connect(w.click_btn_test_wifi_2)
 
     w.btn_test_led_strip_on.clicked.connect(w.click_btn_test_led_strip_on)
@@ -124,6 +128,7 @@ def _gui_decorator_serial(func):
     return wrapper
 
 
+# allows cleaner code
 def gui_setup_decorator_serial(g, ser):
     global g_g
     global g_ser
@@ -131,9 +136,17 @@ def gui_setup_decorator_serial(g, ser):
     g_ser = ser
 
 
-@_gui_decorator_serial
 def gui_btn_test_serial(args=None):
-    gt(g_g, 'testing serial port')
+    p = g_g.combo_ports.currentText()
+    if not p:
+        gt(g_g, 'no serial port to try')
+        return
+
+    # remove spaces put there for aesthetics
+    p = p.replace(' ', '')
+    g_sp.port = p
+    g_sp.open()
+    gt(g_g, 'testing serial port {}'.format(p))
     time.sleep(.1)
     rv = cmd_test_serial(g_ser)
     gt_rv(g_g, rv, 'test_serial')
