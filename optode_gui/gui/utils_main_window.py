@@ -1,7 +1,4 @@
-from optode_gui.commands import cmd_test_serial, cmd_test_power_adc_12v, \
-    cmd_test_led_strip, cmd_test_motor_adc, \
-    cmd_test_motor_move_left, cmd_test_motor_move_right, cmd_test_motor_limit_left, cmd_test_motor_limit_right, \
-    cmd_test_btn_display_out, cmd_test_adc_display_in, cmd_test_btn_wifi_out, cmd_test_adc_wifi
+from optode_gui.commands import *
 import pathlib
 import time
 from PyQt5.QtGui import QIcon
@@ -39,7 +36,9 @@ def gui_trace_rv(gui, rv, name):
     if v:
         gui_trace(gui, '[ ER ] {}'.format(name))
     else:
-        gui_trace(gui, '[ OK ] {}'.format(name))
+        # removing this cleans trace output a lot
+        # gui_trace(gui, '[ OK ] {}'.format(name))
+        pass
     if msg:
         gui_trace(gui, '{}'.format(msg))
 
@@ -96,7 +95,8 @@ def gui_setup_buttons(my_win):
     w.btn_test_display_2.clicked.connect(w.click_btn_test_display_2)
     w.btn_test_wifi_2.clicked.connect(w.click_btn_test_wifi_2)
 
-    w.btn_test_led_strip.clicked.connect(w.click_btn_test_led_strip)
+    w.btn_test_led_strip_on.clicked.connect(w.click_btn_test_led_strip_on)
+    w.btn_test_led_strip_off.clicked.connect(w.click_btn_test_led_strip_off)
     w.btn_test_motor_move_left.clicked.connect(w.click_btn_test_motor_move_left)
     w.btn_test_motor_move_right.clicked.connect(w.click_btn_test_motor_move_right)
     w.btn_test_motor_limit_left.clicked.connect(w.click_btn_test_motor_limit_left)
@@ -151,6 +151,21 @@ def gui_btn_test_display(i: int):
 
 
 @_gui_decorator_serial
+def gui_btn_test_scan(i: int):
+    assert i in (1, 2)
+    rv = cmd_test_adc_display_in(i, g_ser)
+    gt_rv(g_g, rv, 'test_adc_display_{}'.format(i))
+    if rv[1].endswith('OFF'):
+        gt(g_g, 'display OFF, not testing scan')
+        gui_busy_free()
+        return
+
+    gt(g_g, 'toggling scan {}'.format(i))
+    rv = cmd_test_btn_scan_out(i, g_ser)
+    gt_rv(g_g, rv, 'test_btn_scan_{}_out'.format(i))
+
+
+@_gui_decorator_serial
 def gui_btn_test_wifi(i: int):
     assert i in (1, 2)
     rv = cmd_test_adc_display_in(i, g_ser)
@@ -169,10 +184,17 @@ def gui_btn_test_wifi(i: int):
 
 
 @_gui_decorator_serial
-def gui_btn_test_led_strip(args=None):
-    gt(g_g, 'testing led strip')
-    rv = cmd_test_led_strip(g_ser)
-    gt_rv(g_g, rv, 'test_led_strip')
+def gui_btn_test_led_strip_on(args=None):
+    gt(g_g, 'testing led strip_on')
+    rv = cmd_test_led_strip_on(g_ser)
+    gt_rv(g_g, rv, 'test_led_strip_on')
+
+
+@_gui_decorator_serial
+def gui_btn_test_led_strip_off(args=None):
+    gt(g_g, 'testing led strip_off')
+    rv = cmd_test_led_strip_off(g_ser)
+    gt_rv(g_g, rv, 'test_led_strip_off')
 
 
 @_gui_decorator_serial

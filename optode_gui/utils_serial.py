@@ -1,12 +1,16 @@
 import os
 import time
-
 import serial
 from serial import SerialException
+import platform
 
-SERIAL_PORT_ARDUINO_MEGA = '/dev/ttyACM0'
-SERIAL_PORT_ARDUINO_4808_0 = '/dev/ttyUSB0'
-SERIAL_PORT_ARDUINO_4808_1 = '/dev/ttyUSB1'
+
+if platform.system() == 'Windows':
+    SERIAL_PORT_ARDUINO_4808_0 = 'COM3'
+    SERIAL_PORT_ARDUINO_4808_1 = 'COM4'
+else:
+    SERIAL_PORT_ARDUINO_4808_0 = '/dev/ttyUSB0'
+    SERIAL_PORT_ARDUINO_4808_1 = '/dev/ttyUSB1'
 SERIAL_PORT = SERIAL_PORT_ARDUINO_4808_1
 if not os.path.exists(SERIAL_PORT_ARDUINO_4808_1):
     SERIAL_PORT = SERIAL_PORT_ARDUINO_4808_0

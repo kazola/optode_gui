@@ -28,20 +28,32 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
     def click_btn_test_display_1(self): self._th(self._td1)
 
     @staticmethod
-    def _tw1(): gui_btn_test_wifi(1)
-    def click_btn_test_wifi_1(self): self._th(self._tw1)
-
-    @staticmethod
     def _td2(): gui_btn_test_display(2)
     def click_btn_test_display_2(self): self._th(self._td2)
+
+    @staticmethod
+    def _ts1(): gui_btn_test_scan(1)
+    def click_btn_test_scan_1(self): self._th(self._ts1)
+
+    @staticmethod
+    def _ts2(): gui_btn_test_scan(2)
+    def click_btn_test_scan_2(self): self._th(self._ts2)
+
+    @staticmethod
+    def _tw1(): gui_btn_test_wifi(1)
+    def click_btn_test_wifi_1(self): self._th(self._tw1)
 
     @staticmethod
     def _tw2(): gui_btn_test_wifi(2)
     def click_btn_test_wifi_2(self): self._th(self._tw2)
 
     @staticmethod
-    def _test_led_strip(): gui_btn_test_led_strip()
-    def click_btn_test_led_strip(self): self._th(self._test_led_strip)
+    def _test_led_strip_on(): gui_btn_test_led_strip_on()
+    def click_btn_test_led_strip_on(self): self._th(self._test_led_strip_on())
+
+    @staticmethod
+    def _test_led_strip_off(): gui_btn_test_led_strip_off()
+    def click_btn_test_led_strip_off(self): self._th(self._test_led_strip_off())
 
     @staticmethod
     def _tml(): gui_btn_test_motor_move_left()

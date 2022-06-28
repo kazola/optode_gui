@@ -5,9 +5,6 @@ from optode_gui.gui.main_window import MainWindowOptodeGUI
 from optode_gui.settings import ctx
 
 
-TEST_BASIC_UART_COMM = False
-
-
 if __name__ == "__main__":
 
     assert sys.version_info >= (3, 8, 0)

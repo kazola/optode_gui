@@ -25,10 +25,18 @@ def cmd_test_power_adc_12v(ser) -> tuple:
     return 1, s
 
 
-def cmd_test_led_strip(ser) -> tuple:
-    ser.write('3'.encode())
+def cmd_test_led_strip_on(ser) -> tuple:
+    ser.write('j'.encode())
     a = _gao(ser, 4)
-    if a == b'leds':
+    if a == b'led_on':
+        return 0, ''
+    return 1, ''
+
+
+def cmd_test_led_strip_off(ser) -> tuple:
+    ser.write('k'.encode())
+    a = _gao(ser, 4)
+    if a == b'led_off':
         return 0, ''
     return 1, ''
 
@@ -61,6 +69,16 @@ def cmd_test_adc_display_in(i, ser) -> tuple:
 def cmd_test_btn_wifi_out(i, ser) -> tuple:
     assert i in (1, 2)
     _m = {1: '6', 2: 'a'}
+    ser.write(_m[i].encode())
+    a = _gao(ser, 2)
+    if a == b'0':
+        return 0, ''
+    return 1, ''
+
+
+def cmd_test_btn_scan_out(i, ser) -> tuple:
+    assert i in (1, 2)
+    _m = {1: 'h', 2: 'i'}
     ser.write(_m[i].encode())
     a = _gao(ser, 2)
     if a == b'0':
