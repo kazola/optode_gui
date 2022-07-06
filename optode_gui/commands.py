@@ -55,7 +55,7 @@ def cmd_test_adc_display_in(i, ser) -> tuple:
     assert i in (1, 2)
     _m = {1: '5', 2: '9'}
     ser.write(_m[i].encode())
-    a = _gao(ser, 1)
+    a = _gao(ser, 3)
     if not a:
         return 1, ''
 
@@ -80,7 +80,7 @@ def cmd_test_btn_scan_out(i, ser) -> tuple:
     assert i in (1, 2)
     _m = {1: 'h', 2: 'i'}
     ser.write(_m[i].encode())
-    a = _gao(ser, 2)
+    a = _gao(ser, 3)
     if a == b'0':
         return 0, ''
     return 1, ''
@@ -116,26 +116,6 @@ def cmd_test_motor_adc(ser) -> tuple:
     return 1, s
 
 
-def cmd_test_motor_move_left(ser) -> tuple:
-    ser.write('d'.encode())
-    # look at seconds set in firmware test
-    a = _gao(ser, 3)
-    print(a)
-    if a == b'motor_left_done':
-        return 0, ''
-    return 1, ''
-
-
-def cmd_test_motor_move_right(ser) -> tuple:
-    ser.write('e'.encode())
-    # look at seconds set in firmware test
-    a = _gao(ser, 3)
-    print(a)
-    if a == b'motor_right_done':
-        return 0, ''
-    return 1, ''
-
-
 def cmd_test_motor_limit_left(ser) -> tuple:
     ser.write('f'.encode())
     a = _gao(ser, 1)
@@ -150,3 +130,31 @@ def cmd_test_motor_limit_right(ser) -> tuple:
     if not a:
         return 1, ''
     return 0, a.decode()
+
+
+def cmd_test_motor_speed(ser) -> tuple:
+    ser.write('>'.encode())
+    a = _gao(ser, 1)
+    if not a:
+        return 1, ''
+    return 0, a.decode()
+
+
+def cmd_test_motor_move_left(ser) -> tuple:
+    ser.write('d'.encode())
+    # look at seconds set in firmware test
+    exp_a = 'motor_left_done'
+    a = _gao(ser, 21, exp_a)
+    if a == exp_a.encode():
+        return 0, ''
+    return 1, ''
+
+
+def cmd_test_motor_move_right(ser) -> tuple:
+    ser.write('e'.encode())
+    # look at seconds set in firmware test
+    exp_a = 'motor_right_done'
+    a = _gao(ser, 21, exp_a)
+    if a == exp_a.encode():
+        return 0, ''
+    return 1, ''

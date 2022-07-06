@@ -25,7 +25,7 @@ g_sp.port = SERIAL_PORT
 g_sp.timeout = SERIAL_BYTE_TIMEOUT
 
 
-def get_answer_from_optode(ser, timeout_secs=1):
+def get_answer_from_optode(ser, timeout_secs=1, quit=''):
     a = bytes()
     t = time.perf_counter() + timeout_secs
     while 1:
@@ -33,6 +33,8 @@ def get_answer_from_optode(ser, timeout_secs=1):
             break
         try:
             a += ser.read()
+            if quit and quit.encode() == a:
+                break
         except SerialException:
             pass
     return a

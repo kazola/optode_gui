@@ -35,7 +35,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
         <item>
-         <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,1,1,1,1,1,1,1,1,1,1,1,1" columnstretch="1,1,1,1,1">
+         <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,1,1,1,1,1,1,1,1,1,1,1,1,1" columnstretch="1,2,1,2,1">
           <property name="topMargin">
            <number>12</number>
           </property>
@@ -80,7 +80,7 @@
             </property>
            </widget>
           </item>
-          <item row="11" column="1">
+          <item row="12" column="1">
            <widget class="QLabel" name="label_2">
             <property name="font">
              <font>
@@ -112,7 +112,7 @@
             </property>
            </widget>
           </item>
-          <item row="10" column="3">
+          <item row="11" column="3">
            <widget class="QSpinBox" name="spin_loop_reps">
             <property name="font">
              <font>
@@ -185,7 +185,7 @@
             </property>
            </widget>
           </item>
-          <item row="12" column="1">
+          <item row="13" column="1">
            <spacer name="verticalSpacer_2">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -281,7 +281,7 @@
             </property>
            </spacer>
           </item>
-          <item row="10" column="1">
+          <item row="11" column="1">
            <widget class="QLabel" name="label">
             <property name="font">
              <font>
@@ -294,7 +294,7 @@
             </property>
            </widget>
           </item>
-          <item row="11" column="3">
+          <item row="12" column="3">
            <widget class="QSpinBox" name="spin_loop_delay_time">
             <property name="font">
              <font>
@@ -306,13 +306,16 @@
              <set>Qt::AlignCenter</set>
             </property>
             <property name="minimum">
-             <number>10</number>
+             <number>300</number>
             </property>
             <property name="maximum">
              <number>3600</number>
             </property>
             <property name="singleStep">
-             <number>10</number>
+             <number>300</number>
+            </property>
+            <property name="value">
+             <number>300</number>
             </property>
            </widget>
           </item>
@@ -446,6 +449,19 @@
             </property>
            </widget>
           </item>
+          <item row="1" column="3">
+           <widget class="QComboBox" name="combo_ports">
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="insertPolicy">
+             <enum>QComboBox::InsertAtTop</enum>
+            </property>
+           </widget>
+          </item>
           <item row="9" column="2">
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
@@ -481,16 +497,35 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="3">
-           <widget class="QComboBox" name="combo_ports">
+          <item row="10" column="3">
+           <widget class="QPushButton" name="btn_test_motor_speed">
+            <property name="font">
+             <font>
+              <family>DejaVu Sans</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 14pt &quot;DejaVu Sans&quot;;</string>
+            </property>
+            <property name="text">
+             <string>change</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="1">
+           <widget class="QLabel" name="label_4">
             <property name="font">
              <font>
               <family>Arial</family>
               <pointsize>14</pointsize>
              </font>
             </property>
-            <property name="insertPolicy">
-             <enum>QComboBox::InsertAtTop</enum>
+            <property name="text">
+             <string>speed</string>
             </property>
            </widget>
           </item>

@@ -104,6 +104,9 @@ def gui_setup_buttons(my_win):
     w.btn_test_motor_move_right.clicked.connect(w.click_btn_test_motor_move_right)
     w.btn_test_motor_limit_left.clicked.connect(w.click_btn_test_motor_limit_left)
     w.btn_test_motor_limit_right.clicked.connect(w.click_btn_test_motor_limit_right)
+    w.btn_test_motor_speed.clicked.connect(w.click_btn_test_motor_speed)
+
+    w.btn_loop.clicked.connect(w.click_btn_test_loop)
 
 
 def _gui_decorator_serial(func):
@@ -265,3 +268,164 @@ def gui_btn_test_motor_switch_right(args=None):
 def gui_btn_test_battery_adc(args=None):
     rv = cmd_test_power_adc_12v(g_ser)
     gt_rv(g_g, rv, 'test_adc_battery')
+
+
+@_gui_decorator_serial
+def gui_btn_test_motor_speed(args=None):
+    gt(g_g, 'press motor speed')
+    time.sleep(.1)
+    rv = cmd_test_motor_speed(g_ser)
+    print(rv)
+    gt_rv(g_g, rv, 'test_motor_speed')
+
+
+def _lt(s):
+    g_g.lst_trace.addItem('    - {}'.format(s))
+
+
+def _loop():
+    def _post():
+        time.sleep(1)
+        _lt('switch display #1 OFF')
+        cmd_test_btn_display_out(1, g_ser)
+        rv = cmd_test_adc_display_in(1, g_ser)
+        if rv[1].endswith('ON'):
+            return 'error btn_display_1_off'
+
+        time.sleep(1)
+        _lt('switch display #2 OFF')
+        cmd_test_btn_display_out(2, g_ser)
+        rv = cmd_test_adc_display_in(2, g_ser)
+        if rv[1].endswith('ON'):
+            return 'error btn_display_2_off'
+
+        g_g.lst_trace.addItem('\nend of loop')
+
+    def _pre():
+        s = '\n\n\nstart of loop with {} runs'.format(reps)
+        g_g.lst_trace.addItem(s)
+        g_g.lst_trace.addItem('-' * (len(s) + 7))
+
+        time.sleep(1)
+        _lt('motor set speed to 1')
+
+
+        time.sleep(1)
+        _lt('motor towards start')
+        rv = cmd_test_motor_move_left(g_ser)
+        if rv[0]:
+            return 'pre: error motor_move_left'
+
+        time.sleep(1)
+        _lt('switch display #1 ON')
+        cmd_test_btn_display_out(1, g_ser)
+        rv = cmd_test_adc_display_in(1, g_ser)
+        if rv[1].endswith('OFF'):
+            return 'pre: error btn_display_1_on'
+
+        time.sleep(1)
+        _lt('switch display #2 ON')
+        cmd_test_btn_display_out(2, g_ser)
+        rv = cmd_test_adc_display_in(2, g_ser)
+        if rv[1].endswith('OFF'):
+            return 'pre: error btn_display_2_on'
+
+    def _do():
+        s = '\nrun {} of {} starts'.format(i + 1, reps)
+        g_g.lst_trace.addItem(s)
+
+        time.sleep(1)
+        _lt('switch SCAN #1 ON')
+        cmd_test_btn_scan_out(1, g_ser)
+
+        time.sleep(1)
+        _lt('switch SCAN #2 ON')
+        cmd_test_btn_scan_out(2, g_ser)
+
+        time.sleep(1)
+        _lt('switch LED ON')
+        cmd_test_led_strip_on(g_ser)
+
+        time.sleep(1)
+        _lt('motor towards right')
+        rv = cmd_test_motor_move_right(g_ser)
+        if rv[0]:
+            return 'do: error motor_move_right'
+
+        time.sleep(1)
+        _lt('switch LED OFF')
+        cmd_test_led_strip_off(g_ser)
+
+        time.sleep(1)
+        _lt('switch SCAN #1 OFF')
+        cmd_test_btn_scan_out(1, g_ser)
+
+        time.sleep(1)
+        _lt('switch SCAN #2 OFF')
+        cmd_test_btn_scan_out(2, g_ser)
+
+        time.sleep(1)
+        _lt('switch WIFI #1 ON')
+        cmd_test_btn_wifi_out(1, g_ser)
+        rv = cmd_test_adc_wifi(1, g_ser)
+        if rv[1].endswith('OFF'):
+            return 'do: error btn_wifi_1_on'
+
+        time.sleep(1)
+        _lt('switch WIFI #2 ON')
+        cmd_test_btn_wifi_out(2, g_ser)
+        rv = cmd_test_adc_wifi(2, g_ser)
+        if rv[1].endswith('OFF'):
+            return 'do: error btn_wifi_2_on'
+
+        _delay_bw_runs = 10
+        _adjusted_delay_wifi = delay_wifi - _delay_bw_runs
+        _lt('wait: {} secs for download'.format(_adjusted_delay_wifi))
+        time.sleep(_adjusted_delay_wifi)
+
+        time.sleep(1)
+        _lt('switch WIFI #1 OFF')
+        cmd_test_btn_wifi_out(1, g_ser)
+        rv = cmd_test_adc_wifi(1, g_ser)
+        if rv[1].endswith('ON'):
+            return 'do: error btn_wifi_1_off'
+
+        time.sleep(1)
+        _lt('switch WIFI #2 OFF')
+        cmd_test_btn_wifi_out(2, g_ser)
+        rv = cmd_test_adc_wifi(2, g_ser)
+        if rv[1].endswith('ON'):
+            return 'do: error btn_wifi_2_off'
+
+        s = 'run {} of {} ended OK'.format(i + 1, reps)
+        g_g.lst_trace.addItem(s)
+
+        _ = 10
+        _lt('wait: {} secs bw runs'.format(_))
+        time.sleep(_)
+
+    # ------------
+    # loop core
+    # ------------
+    reps = g_g.spin_loop_reps.value()
+    delay_wifi = g_g.spin_loop_delay_time.value()
+
+    _ = _pre()
+    if _:
+        g_g.lst_trace.addItem(_)
+        return
+
+    _ = 0
+    for i in range(reps):
+        _ = _do()
+        if _:
+            g_g.lst_trace.addItem(_)
+            break
+
+    _post()
+
+
+@_gui_decorator_serial
+def gui_btn_test_loop(args=None):
+    _loop()
+

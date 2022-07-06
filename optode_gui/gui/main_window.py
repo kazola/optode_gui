@@ -70,6 +70,14 @@ class MainWindowOptodeGUI(QMainWindow, _dm.Ui_MainWindow):
     def click_btn_test_motor_limit_right(self): self._th(self._tlr)
 
     @staticmethod
+    def _tms(): gui_btn_test_motor_speed()
+    def click_btn_test_motor_speed(self): self._th(self._tms)
+
+    @staticmethod
+    def _t_loop(): gui_btn_test_loop()
+    def click_btn_test_loop(self): self._th(self._t_loop)
+
+    @staticmethod
     def _th(cb):
         # trick for responsive GUI
         th.Thread(target=cb).start()
