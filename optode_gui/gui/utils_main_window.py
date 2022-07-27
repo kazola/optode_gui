@@ -307,10 +307,6 @@ def _loop():
         g_g.lst_trace.addItem('-' * (len(s) + 7))
 
         time.sleep(1)
-        _lt('motor set speed to 1')
-
-
-        time.sleep(1)
         _lt('motor towards start')
         rv = cmd_test_motor_move_left(g_ser)
         if rv[0]:
